@@ -7,24 +7,24 @@ namespace Guess_a_number
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-                   
-                bool areTriesOut = false; //variables
-                int tries = 0;
-                int win = 0;
-                int levels = 1;
-                int maxNumber = 100;
-                int maxTries = 10;
-                int triesLeft = 0;  
-            
+
+            bool areTriesOut = false; //variables
+            int tries = 0;
+            int win = 0;
+            int levels = 1;
+            int maxNumber = 100;
+            int maxTries = 10;
+            int triesLeft = 0;
+
             Random randomNumber = new Random(); //random number
             int computerRandomNumber = randomNumber.Next(1, maxNumber + 1);
             Console.WriteLine($"Welcome to level {levels}.");
-            
+
             while (!areTriesOut)//loop
-            {              
-                
+            {
+
                 Console.WriteLine($"Guess a number (1-{maxNumber})"); //introducing to game level
-                
+
                 Console.ForegroundColor = ConsoleColor.Green;//player input
                 string playerGuess = Console.ReadLine();
                 if (playerGuess == "Tries")
@@ -36,29 +36,27 @@ namespace Guess_a_number
                 }
                 bool isValid = int.TryParse(playerGuess, out int playerNumber);
                 Console.ForegroundColor = ConsoleColor.Blue;
-                
+
                 if (isValid) //game starts
                 {
-                    
-                    if (playerNumber == computerRandomNumber) 
-                    {
-                        {
+
+                    if (playerNumber == computerRandomNumber)
+                    {                      
                             Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("You win."); //win condition
                             win++;
-                            Console.WriteLine("Do you want to go to the next level: [y]es, [n]o");                   
-                        }
-                        string playerInputRetry = (Console.ReadLine());
+                            Console.WriteLine("Do you want to go to the next level: [y]es, [n]o");             
+                            string playerInputRetry = (Console.ReadLine());
                         if (playerInputRetry == "y")  // if (playerInputRetry != "y" || playerInputRetry != "n")
                         {
-                                Console.ForegroundColor = ConsoleColor.Magenta;
-                                Console.WriteLine($"Welcome to level {++levels}...");
-                                Console.WriteLine("Enjoy...");
-                                maxNumber += 100;                             
-                                computerRandomNumber = randomNumber.Next(1, maxNumber + 1);
-                                tries = 0;
-                                maxTries += 5;
-                                continue;
+                            Console.ForegroundColor = ConsoleColor.Magenta;
+                            Console.WriteLine($"Welcome to level {++levels}...");
+                            Console.WriteLine("Enjoy...");
+                            maxNumber += 100;
+                            computerRandomNumber = randomNumber.Next(1, maxNumber + 1);
+                            tries = 0;
+                            maxTries += 5;
+                            continue;
                         }
                         else if (playerInputRetry == "n")  //exit condition
                         {
@@ -68,14 +66,15 @@ namespace Guess_a_number
                         else //exit condition
                         {
                             Console.WriteLine("Invalid input.");
-                        }  
+                            return;
+                        }
                     }
                     else if (playerNumber > computerRandomNumber)  //hints
                     {
                         Console.WriteLine("Too high. Go lower!!");
                         tries++;
                     }
-                    else
+                    else if (playerNumber < computerRandomNumber) 
                     {
                         Console.WriteLine("Too low. Go higher!!");
                         tries++;
@@ -107,22 +106,13 @@ namespace Guess_a_number
                             Console.WriteLine("Invalid input.");
                         }
 
-                    }
-                else 
+                    }  
+                }
+                else
                 {
                     Console.WriteLine("Invalid input.");
                 }
-                
-                }
-
             }
-
-           
-
-
-
-
-
         }
     }
 }
